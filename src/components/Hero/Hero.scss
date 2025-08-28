@@ -1,0 +1,499 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: $bg-primary;
+  
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+  
+  // Animated grid background
+  &__grid {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: 
+      linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
+    animation: grid-move 20s linear infinite;
+  }
+  
+  // Premium gradient orbs
+  &__gradient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.6;
+    animation: float 20s infinite ease-in-out;
+    
+    &--1 {
+      width: 600px;
+      height: 600px;
+      background: $gradient-primary;
+      top: -200px;
+      right: -200px;
+      animation-delay: 0s;
+    }
+    
+    &--2 {
+      width: 500px;
+      height: 500px;
+      background: $gradient-secondary;
+      bottom: -150px;
+      left: -150px;
+      animation-delay: 7s;
+    }
+    
+    &--3 {
+      width: 400px;
+      height: 400px;
+      background: $gradient-tertiary;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: 14s;
+    }
+  }
+  
+  // Floating particles
+  &__particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: $accent-glow;
+    border-radius: 50%;
+    opacity: 0;
+    animation: particle-float 15s infinite linear;
+    
+    @for $i from 0 through 19 {
+      &--#{$i} {
+        left: #{random(100)}%;
+        animation-delay: #{random(15)}s;
+        animation-duration: #{15 + random(10)}s;
+      }
+    }
+  }
+  
+  &__content {
+    max-width: 900px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  
+  // Intro text animation
+  &__intro {
+    display: inline-block;
+    margin-bottom: 2rem;
+    
+    &-text {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      color: $accent-primary;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-weight: 600;
+    }
+  }
+  
+  // Name with glitch effect
+  &__name {
+    font-size: clamp(3rem, 10vw, 6rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1;
+    
+    &-text {
+      position: relative;
+      display: inline-block;
+      
+      &::before,
+      &::after {
+        content: attr(data-text);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+      
+      &::before {
+        animation: glitch-1 0.5s infinite;
+        color: $accent-secondary;
+        z-index: -1;
+      }
+      
+      &::after {
+        animation: glitch-2 0.5s infinite;
+        color: $accent-tertiary;
+        z-index: -2;
+      }
+      
+      &:hover {
+        &::before,
+        &::after {
+          animation-duration: 0.2s;
+        }
+      }
+    }
+  }
+  
+  // Title wrapper for smooth transitions
+  &__title-wrapper {
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    perspective: 1000px;
+  }
+  
+  &__title {
+    &-text {
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 700;
+      background: $gradient-primary;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+  }
+  
+  &__description {
+    font-size: clamp(1rem, 2vw, 1.3rem);
+    color: $text-secondary;
+    max-width: 700px;
+    margin: 0 auto 3rem;
+    line-height: 1.8;
+    
+    &-highlight {
+      color: $text-primary;
+      font-weight: 600;
+      position: relative;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: $gradient-primary;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+      }
+    }
+  }
+  
+  // Premium CTA buttons
+  &__cta {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+  
+  // Social links
+  &__social {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    
+    &-link {
+      color: $text-secondary;
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      transition: color 0.3s ease;
+      
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: $gradient-primary;
+        transition: width 0.3s ease;
+      }
+      
+      &:hover {
+        color: $text-primary;
+        
+        &::after {
+          width: 100%;
+        }
+      }
+    }
+  }
+  
+  // Animated scroll indicator
+  &__scroll-indicator {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    &-mouse {
+      width: 30px;
+      height: 50px;
+      border: 2px solid $text-secondary;
+      border-radius: 25px;
+      position: relative;
+      margin-bottom: 10px;
+      
+      .hero__scroll-wheel {
+        width: 4px;
+        height: 10px;
+        background: $text-secondary;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        animation: scroll-wheel 1.5s infinite;
+      }
+    }
+    
+    &-arrows {
+      span {
+        display: block;
+        width: 10px;
+        height: 10px;
+        border-right: 2px solid $text-secondary;
+        border-bottom: 2px solid $text-secondary;
+        transform: rotate(45deg);
+        margin: -5px auto;
+        animation: scroll-arrow 1.5s infinite;
+        
+        &:nth-child(2) {
+          animation-delay: 0.2s;
+        }
+        
+        &:nth-child(3) {
+          animation-delay: 0.4s;
+        }
+      }
+    }
+  }
+}
+
+// Enhanced button styles
+.btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  
+  &--primary {
+    background: $gradient-primary;
+    color: white;
+    box-shadow: $shadow-glow-purple;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+    
+    .btn__glow {
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover .btn__glow {
+      opacity: 1;
+      animation: glow-pulse 1.5s ease-out infinite;
+    }
+  }
+  
+  &--secondary {
+    background: transparent;
+    color: $text-primary;
+    border: 2px solid $accent-primary;
+    position: relative;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 100%;
+      background: $gradient-primary;
+      transition: width 0.3s ease;
+      z-index: -1;
+    }
+    
+    &:hover {
+      color: white;
+      border-color: transparent;
+      transform: translateY(-2px);
+      
+      &::before {
+        width: 100%;
+      }
+      
+      .btn__arrow {
+        transform: translateX(5px);
+      }
+    }
+  }
+  
+  &__arrow {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 2;
+    fill: none;
+    transition: transform 0.3s ease;
+  }
+}
+
+// Animations
+@keyframes grid-move {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1) rotate(120deg);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9) rotate(240deg);
+  }
+}
+
+@keyframes particle-float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+
+@keyframes glitch-1 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(20% 0 30% 0);
+    transform: translate(-2px, 2px);
+  }
+  40% {
+    clip-path: inset(50% 0 5% 0);
+    transform: translate(2px, -2px);
+  }
+  60% {
+    clip-path: inset(80% 0 5% 0);
+    transform: translate(-2px, 2px);
+  }
+  80% {
+    clip-path: inset(10% 0 85% 0);
+    transform: translate(2px, -2px);
+  }
+}
+
+@keyframes glitch-2 {
+  0%, 100% {
+    clip-path: inset(0 0 0 0);
+    transform: translate(0);
+  }
+  20% {
+    clip-path: inset(30% 0 25% 0);
+    transform: translate(2px, -2px);
+  }
+  40% {
+    clip-path: inset(5% 0 60% 0);
+    transform: translate(-2px, 2px);
+  }
+  60% {
+    clip-path: inset(85% 0 10% 0);
+    transform: translate(2px, -2px);
+  }
+  80% {
+    clip-path: inset(20% 0 70% 0);
+    transform: translate(-2px, 2px);
+  }
+}
+
+@keyframes scroll-wheel {
+  0%, 20% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  80%, 100% {
+    transform: translateX(-50%) translateY(20px);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll-arrow {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes glow-pulse {
+  0% {
+    transform: scale(0.5);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

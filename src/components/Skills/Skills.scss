@@ -1,0 +1,317 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.skills {
+  position: relative;
+  padding: 5rem 0;
+  overflow: hidden;
+  
+  &__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  &__subtitle {
+    font-size: 1.2rem;
+    color: $text-secondary;
+    margin-top: 1rem;
+  }
+  
+  // Category Tabs
+  &__tabs {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    flex-wrap: wrap;
+  }
+  
+  &__tab {
+    position: relative;
+    padding: 1rem 2.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    color: $text-primary;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    
+    &:hover {
+      border-color: var(--tab-color);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+    
+    &.active {
+      color: white;
+      border-color: transparent;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+      
+      span {
+        position: relative;
+        z-index: 1;
+      }
+    }
+    
+    &-indicator {
+      position: absolute;
+      inset: 0;
+      border-radius: 50px;
+      opacity: 0.1;
+    }
+  }
+  
+  // Skills Content
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+    
+    @include mobile {
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 1.5rem;
+    }
+  }
+  
+  // Description Box
+  &__description {
+    max-width: 800px;
+    margin: 0 auto;
+    
+    &-content {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      backdrop-filter: blur(10px);
+      
+      @include mobile {
+        flex-direction: column;
+        text-align: center;
+      }
+    }
+    
+    &-icon {
+      font-size: 3rem;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    p {
+      color: $text-secondary;
+      line-height: 1.8;
+      font-size: 1.1rem;
+    }
+  }
+  
+  // Background Decoration
+  &__bg-decoration {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+  }
+  
+  &__bg-gradient {
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, $accent-primary 0%, transparent 70%);
+    opacity: 0.05;
+    filter: blur(100px);
+    margin: 0 auto;
+  }
+}
+
+// Skill Card
+.skill-card {
+  position: relative;
+  background: $bg-card;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 20enger;
+  padding: 2rem 1rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  transform-style: preserve-3d;
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: var(--card-delay);
+  opacity: 0;
+  
+  &:hover {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--skill-color);
+    transform: translateY(-10px) scale(1.05) rotateY(10deg) rotateX(-10deg);
+    
+    .skill-card__glow {
+      opacity: 1;
+    }
+    
+    .skill-card__icon {
+      color: var(--skill-color);
+      filter: drop-shadow(0 0 20px var(--skill-color));
+    }
+  }
+  
+  &__icon-wrapper {
+    position: relative;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  
+  &__icon {
+    font-size: 3.5rem;
+    color: $text-secondary;
+    transition: all 0.3s ease;
+    
+    @include mobile {
+      font-size: 2.5rem;
+    }
+  }
+  
+  &__glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    background: radial-gradient(circle, var(--skill-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    filter: blur(30px);
+    pointer-events: none;
+  }
+  
+  &__name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $text-primary;
+    margin: 0;
+    transition: all 0.3s ease;
+    
+    @include mobile {
+      font-size: 0.9rem;
+    }
+  }
+  
+  // Floating Particles
+  &__particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: var(--skill-color);
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      box-shadow: 0 0 10px var(--skill-color);
+    }
+  }
+}
+
+// Animations
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+// Special animations for category transitions
+.skills__content {
+  animation: contentFadeIn 0.6s ease-out;
+}
+
+@keyframes contentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 3D hover effect styles
+@supports (transform-style: preserve-3d) {
+  .skill-card {
+    transform-style: preserve-3d;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        transparent 40%,
+        rgba(255, 255, 255, 0.02) 50%,
+        transparent 60%
+      );
+      transform: translateZ(1px);
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    &:hover::before {
+      opacity: 1;
+    }
+  }
+}
+
+// Responsive adjustments
+@include tablet {
+  .skills {
+    &__grid {
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    }
+  }
+}
+
+@include mobile {
+  .skills {
+    padding: 3rem 0;
+    
+    &__tabs {
+      gap: 0.5rem;
+    }
+    
+    &__tab {
+      padding: 0.75rem 1.5rem;
+      font-size: 0.9rem;
+    }
+    
+    &__description-content {
+      padding: 1.5rem;
+    }
+  }
+}

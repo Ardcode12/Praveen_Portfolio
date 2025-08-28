@@ -1,0 +1,167 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.experience {
+  overflow: hidden;
+}
+
+.timeline {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: $bg-tertiary;
+    transform: translateX(-50%);
+    
+    @include mobile {
+      left: 30px;
+    }
+  }
+  
+  &__item {
+    position: relative;
+    width: 50%;
+    padding: 2rem 3rem;
+    
+    @include mobile {
+      width: 100%;
+      padding-left: 80px;
+      padding-right: 1rem;
+    }
+    
+    &.left {
+      left: 0;
+      text-align: right;
+      
+      @include mobile {
+        text-align: left;
+      }
+      
+      .timeline__content {
+        padding-right: 3rem;
+        
+        @include mobile {
+          padding-right: 0;
+        }
+      }
+    }
+    
+    &.right {
+      left: 50%;
+      
+      @include mobile {
+        left: 0;
+      }
+      
+      .timeline__content {
+        padding-left: 3rem;
+        
+        @include mobile {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+  
+  &__marker {
+    position: absolute;
+    top: 2rem;
+    width: 50px;
+    height: 50px;
+    background: $gradient-primary;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    z-index: 1;
+    
+    @include mobile {
+      left: 5px;
+    }
+    
+    .timeline__item.left & {
+      right: -25px;
+      
+      @include mobile {
+        right: auto;
+        left: 5px;
+      }
+    }
+    
+    .timeline__item.right & {
+      left: -25px;
+      
+      @include mobile {
+        left: 5px;
+      }
+    }
+  }
+  
+  &__content {
+    background: $bg-card;
+    padding: 2rem;
+    border-radius: 16px;
+    @include hover-lift;
+    
+    h3 {
+      color: $text-primary;
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    h4 {
+      color: $accent-primary;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+    
+    p {
+      color: $text-secondary;
+      margin: 1rem 0;
+      line-height: 1.6;
+    }
+  }
+  
+  &__period {
+    display: inline-block;
+    padding: 0.25rem 1rem;
+    background: rgba($accent-secondary, 0.1);
+    color: $accent-secondary;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
+  
+  &__tech {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    
+    .timeline__item.left & {
+      justify-content: flex-end;
+      
+      @include mobile {
+        justify-content: flex-start;
+      }
+    }
+  }
+}
+
+.tech-tag {
+  padding: 0.25rem 0.75rem;
+  background: rgba($accent-tertiary, 0.1);
+  color: $accent-tertiary;
+  border-radius: 4px;
+  font-size: 0.875rem;
+}

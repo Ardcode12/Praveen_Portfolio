@@ -1,0 +1,97 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: all 0.3s ease;
+  
+  &--scrolled {
+    @include glass-effect;
+    box-shadow: $shadow-md;
+  }
+  
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+  }
+  
+  &__logo {
+    font-size: 2rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  
+  &__menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    
+    @include mobile {
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 80%;
+      height: 100vh;
+      background: $bg-secondary;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      transition: right 0.3s ease;
+      
+      &--open {
+        right: 0;
+      }
+    }
+  }
+  
+  &__link {
+    color: $text-secondary;
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: $gradient-primary;
+      transition: width 0.3s ease;
+    }
+    
+    &:hover {
+      color: $text-primary;
+      
+      &::after {
+        width: 100%;
+      }
+    }
+  }
+  
+  &__toggle {
+    display: none;
+    flex-direction: column;
+    gap: 4px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    
+    @include mobile {
+      display: flex;
+    }
+    
+    span {
+      width: 25px;
+      height: 2px;
+      background: $text-primary;
+      transition: all 0.3s ease;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.footer {
+  background: $bg-secondary;
+  padding: 2rem 0;
+  margin-top: 5rem;
+  
+  &__content {
+    text-align: center;
+    color: $text-secondary;
+    
+    p {
+      margin: 0.5rem 0;
+    }
+  }
+}
